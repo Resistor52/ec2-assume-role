@@ -24,7 +24,7 @@ echo; echo "==== Create Python Script to Assume a Role"
 cat << EOF > /home/ec2-user/ec2-assume-role.py
 import boto3
 
-def role_to_session(**args):
+def role_to_session(**kwargs):
    """
    Usage :
        session = role_to_session(
@@ -33,7 +33,7 @@ def role_to_session(**args):
        client = session.client('sqs')
    """
    client = boto3.client('sts')
-   response = client.assume_role(**args)
+   response = client.assume_role(**kwargs)
    return boto3.Session(
        aws_access_key_id=response['Credentials']['AccessKeyId'],
        aws_secret_access_key=response['Credentials']['SecretAccessKey'],
